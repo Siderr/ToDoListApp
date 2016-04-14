@@ -82,13 +82,13 @@ router.route('/tasks/complete/:task_id')
                 res.status(404).send(err);
                 return;
             }
-            task.completed = true;
+            task.completed = !task.complete;
             task.save(function (err) {
                 if (err) {
-                    res.status(500).json({message: " Could not save new TODO. Internal server error."});
+                    res.status(500).json({message: " Could update TODO. Internal server error."});
                     return;
                 }
-                res.json({message: 'Task completed successfully! Good job!'});
+                res.json({message: 'Task updated successfully! Good job!'});
             });
         });
     });

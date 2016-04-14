@@ -15,7 +15,7 @@ var TodoListBox = React.createClass({
                 this.setState({data: data});
             }.bind(this),
             error: function (xhr, status, err) {
-                showAlert("danger", "Could not data from server.");
+                showAlert("danger", "Could not get data from server.");
             }
         });
     },
