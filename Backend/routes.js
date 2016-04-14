@@ -82,7 +82,7 @@ router.route('/tasks/complete/:task_id')
                 res.status(404).send(err);
                 return;
             }
-            task.completed = !task.complete;
+            task.completed = !task.completed;
             task.save(function (err) {
                 if (err) {
                     res.status(500).json({message: " Could update TODO. Internal server error."});

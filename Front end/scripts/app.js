@@ -76,7 +76,7 @@ var TodoListBox = React.createClass({
         var tasks = this.state.data;
         tasks.forEach(function (task) {
             if (task._id == id) {
-                task.completed = true;
+                task.completed = !task.completed;
             }
         });
         this.setState({data: tasks});
@@ -266,6 +266,6 @@ var TaskFilter = React.createClass({
 });
 
 ReactDOM.render(
-    <TodoListBox url="http://localhost:8080/tasks" pollInterval={3000}/>,
+    <TodoListBox url="http://www.sprendziu.lt:8080/tasks" pollInterval={3000}/>,
     document.getElementById('content')
 );
