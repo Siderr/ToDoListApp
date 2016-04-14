@@ -1,5 +1,9 @@
 var ESCAPE_KEY = 27;
 var ENTER_KEY = 13;
+var ALL = "All";
+var ACTIVE = "Active";
+var COMPLETED = "Completed";
+
 var TodoListBox = React.createClass({
     loadTasksFromServer: function () {
         $.ajax({
@@ -95,7 +99,7 @@ var TodoListBox = React.createClass({
         setInterval(this.loadTasksFromServer, this.props.pollInterval);
     },
     getInitialState: function () {
-        return {data: [], filter: "All"};
+        return {data: [], filter: ALL};
     },
     changeFilter: function (filter) {
         this.setState({filter: filter});
@@ -105,11 +109,11 @@ var TodoListBox = React.createClass({
         return (
             <div className="toDoListBox container">
                 <h1>To Do List</h1>
-                <TaskFilter onChangeFilter={this.changeFilter}/>
+                <TaskFilter currentFilter={this.state.filter} onChangeFilter={this.changeFilter}/>
                 <TaskForm onTaskSubmit={this.handleTaskSubmit}/>
                 <TaskList data={this.state.data} filter={this.state.filter} onDelete={this.handleTaskDelete}
                           onComplete={this.markCompleted}
-                          onUpdate={this.handleTaskUpdate}/>                
+                          onUpdate={this.handleTaskUpdate}/>
             </div>
         );
     }
@@ -123,11 +127,11 @@ var TaskList = React.createClass({
         var currentFilter = this.props.filter;
         var shownTasks = this.props.data.filter(function (task) {
             switch (currentFilter) {
-                case "All" :
+                case ALL :
                     return true;
-                case "Active" :
+                case ACTIVE :
                     return task.completed == false;
-                case "Completed" :
+                case COMPLETED :
                     return task.completed == true;
             }
         });
@@ -243,11 +247,19 @@ var TaskFilter = React.createClass({
         this.props.onChangeFilter(e.target.innerHTML);
     },
     render: function () {
+        var filter = this.props.currentFilter;
+        console.log(filter);
         return (
             <div className="taskFilter">
-                <button className="btn btn-default" onClick={this.changeFilter}>All</button>
-                <button className="btn btn-default" onClick={this.changeFilter}>Active</button>
-                <button className="btn btn-default" onClick={this.changeFilter}>Completed</button>
+                <button className={classNames('btn', 'btn-default',{ 'btn-primary' : filter == ALL})}
+                        onClick={this.changeFilter}>All
+                </button>
+                <button className={classNames('btn', 'btn-default',{ 'btn-primary' : filter == ACTIVE})}
+                        onClick={this.changeFilter}>Active
+                </button>
+                <button className={classNames('btn', 'btn-default',{ 'btn-primary' : filter == COMPLETED })}
+                        onClick={this.changeFilter}>Completed
+                </button>
             </div>
         )
     }

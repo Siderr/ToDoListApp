@@ -1,7 +1,7 @@
 var alertTimeout;
 
 function showAlert(type, text) {
-    var el = $('<div id="alertMsg" class="alert alert-'+ type +'"></div>')
+    var el = $('<div id="alertMsg" class="alert alert-' + type + '"></div>')
         .text(text)
         .css({
             "display": "none",
@@ -18,9 +18,9 @@ function showAlert(type, text) {
 
     //show new one
     $('body').append(el);
-    $('#alertMsg').slideDown("fast", function() {
-        alertTimeout = setTimeout(function(){
-            $('#alertMsg').fadeOut("slow", function() {
+    $('#alertMsg').slideDown("fast", function () {
+        alertTimeout = setTimeout(function () {
+            $('#alertMsg').fadeOut("slow", function () {
                 $('#alertMsg').remove();
             });
         }, 2000);
