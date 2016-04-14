@@ -247,7 +247,6 @@ var TaskFilter = React.createClass({
     },
     render: function () {
         var filter = this.props.currentFilter;
-        console.log(filter);
         return (
             <div className="taskFilter">
                 <button className={classNames('btn', 'btn-default',{ 'btn-primary' : filter == ALL})}
