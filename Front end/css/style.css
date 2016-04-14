@@ -1,0 +1,20 @@
+label {
+    width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: middle;
+    padding: 0 5px;
+}
+
+.taskForm {
+    padding-bottom: 20px;
+}
+
+.completed {
+    text-decoration: line-through;
+}
+
+.taskEdit {
+    width: 200px;
+}
