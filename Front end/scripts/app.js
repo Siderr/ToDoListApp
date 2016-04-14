@@ -72,7 +72,7 @@ var TodoListBox = React.createClass({
             }
         });
     },
-    markCompleted: function (id) {
+    toggleComplete: function (id) {
         var tasks = this.state.data;
         tasks.forEach(function (task) {
             if (task._id == id) {
@@ -103,7 +103,6 @@ var TodoListBox = React.createClass({
     },
     changeFilter: function (filter) {
         this.setState({filter: filter});
-        // this.forceUpdate();
     },
     render: function () {
         return (
@@ -112,7 +111,7 @@ var TodoListBox = React.createClass({
                 <TaskFilter currentFilter={this.state.filter} onChangeFilter={this.changeFilter}/>
                 <TaskForm onTaskSubmit={this.handleTaskSubmit}/>
                 <TaskList data={this.state.data} filter={this.state.filter} onDelete={this.handleTaskDelete}
-                          onComplete={this.markCompleted}
+                          onComplete={this.toggleComplete}
                           onUpdate={this.handleTaskUpdate}/>
             </div>
         );
