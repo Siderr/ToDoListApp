@@ -48,9 +48,9 @@ router.route('/tasks/:task_id')
         });
     })
     .put(function (req, res) {
-        Task.findById(req.params.id, function (err, task) {
+        Task.findById(req.params.task_id, function (err, task) {
             if (err) {
-                res.status(404).json({"message": "Not found."});
+                res.status(404).send(err);
                 return;
             }
             task.text = req.body.text;

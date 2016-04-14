@@ -37,7 +37,7 @@ var TodoListBox = React.createClass({
             url: url,
             type: 'PUT',
             datatype: 'json',
-            data: {'id': id, 'text': text},
+            data: {'text': text},
             cache: false,
             success: function (data) {
                 this.loadTasksFromServer();
@@ -105,11 +105,11 @@ var TodoListBox = React.createClass({
         return (
             <div className="toDoListBox container">
                 <h1>To Do List</h1>
+                <TaskFilter onChangeFilter={this.changeFilter}/>
                 <TaskForm onTaskSubmit={this.handleTaskSubmit}/>
                 <TaskList data={this.state.data} filter={this.state.filter} onDelete={this.handleTaskDelete}
                           onComplete={this.markCompleted}
-                          onUpdate={this.handleTaskUpdate}/>
-                <TaskFilter onChangeFilter={this.changeFilter}/>
+                          onUpdate={this.handleTaskUpdate}/>                
             </div>
         );
     }
@@ -151,7 +151,7 @@ var Task = React.createClass({
         return {editing: false};
     },
     handleSubmit: function (e) {
-        var text = e.target.value.trim();
+        var text = this.state.editText.trim();
         this.props.onUpdate(this.props.id, text);
         this.editing = false;
         this.forceUpdate();
