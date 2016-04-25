@@ -140,9 +140,9 @@
 	                success: function (data) {
 	                    this.setState({ data: data });
 	                }.bind(this),
-	                error: function error(xhr, status, err) {
+	                error: function (xhr, status, err) {
 	                    this.showAlert("danger", "Could not get data from server.");
-	                }
+	                }.bind(this)
 	            });
 	        }
 	    }, {
@@ -158,9 +158,9 @@
 	                    this.loadTasksFromServer();
 	                    this.showAlert("success", data.message);
 	                }.bind(this),
-	                error: function error(xhr, status, err) {
+	                error: function (xhr, status, err) {
 	                    this.showAlert("danger", xhr.status.toString().concat(" ", xhr.responseJSON.message));
-	                }
+	                }.bind(this)
 	            });
 	        }
 	    }, {
@@ -177,9 +177,9 @@
 	                    this.loadTasksFromServer();
 	                    this.showAlert("success", data.message);
 	                }.bind(this),
-	                error: function error(xhr, status, err) {
+	                error: function (xhr, status, err) {
 	                    this.showAlert("danger", xhr.status.toString().concat(" ", xhr.responseJSON.message));
-	                }
+	                }.bind(this)
 	            });
 	        }
 	    }, {

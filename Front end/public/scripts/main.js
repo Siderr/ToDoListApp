@@ -36,8 +36,8 @@ class ToDoApp extends React.Component {
         );
     }
 
-    showAlert(type,text) {
-        ReactDOM.render( <Alert text = {text} type = {type} />,document.getElementById('alert'));
+    showAlert(type, text) {
+        ReactDOM.render(<Alert text={text} type={type}/>, document.getElementById('alert'));
     }
 
     loadTasksFromServer() {
@@ -51,7 +51,7 @@ class ToDoApp extends React.Component {
             }.bind(this),
             error: function (xhr, status, err) {
                 this.showAlert("danger", "Could not get data from server.");
-            }
+            }.bind(this)
         });
     }
 
@@ -68,7 +68,7 @@ class ToDoApp extends React.Component {
             }.bind(this),
             error: function (xhr, status, err) {
                 this.showAlert("danger", xhr.status.toString().concat(" ", xhr.responseJSON.message));
-            }
+            }.bind(this)
         });
     }
 
@@ -86,7 +86,7 @@ class ToDoApp extends React.Component {
             }.bind(this),
             error: function (xhr, status, err) {
                 this.showAlert("danger", xhr.status.toString().concat(" ", xhr.responseJSON.message));
-            }
+            }.bind(this)
         });
     }
 
