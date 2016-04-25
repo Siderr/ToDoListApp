@@ -20419,12 +20419,6 @@
 	}(_react2.default.Component);
 	
 	module.exports = TaskFilter;
-	
-	// ReactDOM.render(
-	//     <TaskFilter currentFilter={"All"}/>,
-	//     document.getElementById('content')
-	// )
-	// console.log("Task Filter works.")
 
 /***/ },
 /* 160 */

@@ -32,9 +32,3 @@ class TaskFilter extends React.Component {
 }
 
 module.exports = TaskFilter;
-
-// ReactDOM.render(
-//     <TaskFilter currentFilter={"All"}/>,
-//     document.getElementById('content')
-// )
-// console.log("Task Filter works.")
