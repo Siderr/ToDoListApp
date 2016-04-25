@@ -18,7 +18,6 @@ class ToDoApp extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log(this);
         this.state = {data: [], filter: ALL};
     }
 
@@ -36,7 +35,6 @@ class ToDoApp extends React.Component {
     }
 
     loadTasksFromServer() {
-        console.log(this);
         $.ajax({
             url: this.props.url,
             type: 'GET',

@@ -56,9 +56,9 @@ class Task extends React.Component {
         if (!this.editing) {
             return (
                 <div className="task">
-                    <input type="checkbox" checked={this.props.completed} onChange={this.complete}></input>
-                    <label className={label} onDoubleClick={this.edit}>{this.props.text}</label>
-                    <a onClick={this.handleDelete}>
+                    <input type="checkbox" checked={this.props.completed} onChange={this.complete.bind(this)}></input>
+                    <label className={label} onDoubleClick={this.edit.bind(this)}>{this.props.text}</label>
+                    <a onClick={this.handleDelete.bind(this)}>
                         <i className={"fa fa-trash"}></i>
                     </a>
                 </div>
@@ -66,11 +66,11 @@ class Task extends React.Component {
         } else {
             return (
                 <div className="task">
-                    <input type="checkbox" checked={this.props.completed} onChange={this.complete}></input>
+                    <input type="checkbox" checked={this.props.completed} onChange={this.complete.bind(this)}></input>
                     <input className="taskEdit" value={this.state.editText}
-                           onChange={this.handleChange} onKeyDown={this.handleKeyDown}
-                           onBlur={this.handleSubmit}></input>
-                    <a onClick={this.handleDelete}>
+                           onChange={this.handleChange.bind(this)} onKeyDown={this.handleKeyDown.bind(this)}
+                           onBlur={this.handleSubmit.bind(this)}></input>
+                    <a onClick={this.handleDelete.bind(this)}>
                         <i className={"fa fa-trash"}></i>
                     </a>
                 </div>

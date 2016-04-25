@@ -11,7 +11,6 @@ var COMPLETED = "Completed";
 
 class TaskList extends React.Component {
     render() {
-        console.log(this);
         var onDelete = this.props.onDelete;
         var onComplete = this.props.onComplete;
         var onUpdate = this.props.onUpdate;
@@ -29,7 +28,7 @@ class TaskList extends React.Component {
 
         var taskNodes = shownTasks.map(function (task) {
             return (
-                <Task completed={task.completed} text={task.text} id={task._id}
+                <Task completed={task.completed} text={task.text} key={task._id} id={task._id}
                       onTaskDelete={onDelete} onComplete={onComplete} onUpdate={onUpdate}/>
             );
         }, this);

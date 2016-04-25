@@ -71,10 +71,6 @@
 	
 	var _taskList2 = _interopRequireDefault(_taskList);
 	
-	var _task = __webpack_require__(/*! ./components/task.jsx */ 164);
-	
-	var _task2 = _interopRequireDefault(_task);
-	
 	var _alert = __webpack_require__(/*! ./components/alert.jsx */ 165);
 	
 	var _alert2 = _interopRequireDefault(_alert);
@@ -103,8 +99,10 @@
 	
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ToDoApp).call(this, props));
 	
-	        console.log(_this);
 	        _this.state = { data: [], filter: ALL };
+	        _this.showAlert = _this.showAlert.bind(_this);
+	        _this.loadTasksFromServer = _this.loadTasksFromServer.bind(_this);
+	        _this.loadTasksFromServer();
 	        return _this;
 	    }
 	
@@ -119,17 +117,21 @@
 	                    null,
 	                    'To Do List'
 	                ),
-	                _react2.default.createElement(_taskFilter2.default, { currentFilter: this.state.filter, onChangeFilter: this.changeFilter }),
-	                _react2.default.createElement(_taskForm2.default, { onTaskSubmit: this.handleTaskSubmit }),
-	                _react2.default.createElement(_taskList2.default, { data: this.state.data, filter: this.state.filter, onDelete: this.handleTaskDelete,
-	                    onComplete: this.toggleComplete,
-	                    onUpdate: this.handleTaskUpdate })
+	                _react2.default.createElement(_taskFilter2.default, { currentFilter: this.state.filter, onChangeFilter: this.changeFilter.bind(this) }),
+	                _react2.default.createElement(_taskForm2.default, { onTaskSubmit: this.handleTaskSubmit.bind(this) }),
+	                _react2.default.createElement(_taskList2.default, { data: this.state.data, filter: this.state.filter, onDelete: this.handleTaskDelete.bind(this),
+	                    onComplete: this.toggleComplete.bind(this),
+	                    onUpdate: this.handleTaskUpdate.bind(this) })
 	            );
+	        }
+	    }, {
+	        key: 'showAlert',
+	        value: function showAlert(type, text) {
+	            _reactDom2.default.render(_react2.default.createElement(_alert2.default, { text: text, type: type }), document.getElementById('alert'));
 	        }
 	    }, {
 	        key: 'loadTasksFromServer',
 	        value: function loadTasksFromServer() {
-	            console.log(this);
 	            $.ajax({
 	                url: this.props.url,
 	                type: 'GET',
@@ -139,7 +141,7 @@
 	                    this.setState({ data: data });
 	                }.bind(this),
 	                error: function error(xhr, status, err) {
-	                    showAlert("danger", "Could not get data from server.");
+	                    this.showAlert("danger", "Could not get data from server.");
 	                }
 	            });
 	        }
@@ -154,10 +156,10 @@
 	                cache: false,
 	                success: function (data) {
 	                    this.loadTasksFromServer();
-	                    showAlert("success", data.message);
+	                    this.showAlert("success", data.message);
 	                }.bind(this),
 	                error: function error(xhr, status, err) {
-	                    showAlert("danger", xhr.status.toString().concat(" ", xhr.responseJSON.message));
+	                    this.showAlert("danger", xhr.status.toString().concat(" ", xhr.responseJSON.message));
 	                }
 	            });
 	        }
@@ -173,10 +175,10 @@
 	                cache: false,
 	                success: function (data) {
 	                    this.loadTasksFromServer();
-	                    showAlert("success", data.message);
+	                    this.showAlert("success", data.message);
 	                }.bind(this),
 	                error: function error(xhr, status, err) {
-	                    showAlert("danger", xhr.status.toString().concat(" ", xhr.responseJSON.message));
+	                    this.showAlert("danger", xhr.status.toString().concat(" ", xhr.responseJSON.message));
 	                }
 	            });
 	        }
@@ -194,12 +196,12 @@
 	                type: 'DELETE',
 	                dataType: 'json',
 	                cache: false,
-	                success: function success(data) {
-	                    showAlert("success", data.message);
-	                },
-	                error: function error(xhr, status, err) {
-	                    showAlert("danger", xhr.status.toString().concat(" ", xhr.responseJSON.message));
-	                }
+	                success: function (data) {
+	                    this.showAlert("success", data.message);
+	                }.bind(this),
+	                error: function (xhr, status, err) {
+	                    this.showAlert("danger", xhr.status.toString().concat(" ", xhr.responseJSON.message));
+	                }.bind(this)
 	            });
 	        }
 	    }, {
@@ -219,18 +221,18 @@
 	                dataType: 'json',
 	                cache: false,
 	                success: function (data) {
-	                    showAlert("success", data.message);
+	                    this.showAlert("success", data.message);
 	                }.bind(this),
-	                error: function error(xhr, status, err) {
-	                    showAlert("danger", xhr.status.toString().concat(" ", xhr.responseJSON.message));
-	                }
+	                error: function (xhr, status, err) {
+	                    this.showAlert("danger", xhr.status.toString().concat(" ", xhr.responseJSON.message));
+	                }.bind(this)
 	            });
 	        }
 	    }, {
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            this.loadTasksFromServer();
-	            setInterval(this.loadTasksFromServer, this.props.pollInterval);
+	            this.loadTasksFromServer.bind(this);
+	            setInterval(this.loadTasksFromServer.bind(this), this.props.pollInterval);
 	        }
 	    }, {
 	        key: 'changeFilter',
@@ -20360,10 +20362,13 @@
 	var TaskFilter = function (_React$Component) {
 	    _inherits(TaskFilter, _React$Component);
 	
-	    function TaskFilter() {
+	    function TaskFilter(props) {
 	        _classCallCheck(this, TaskFilter);
 	
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(TaskFilter).apply(this, arguments));
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TaskFilter).call(this, props));
+	
+	        _this.changeFilter = _this.changeFilter.bind(_this);
+	        return _this;
 	    }
 	
 	    _createClass(TaskFilter, [{
@@ -20513,10 +20518,10 @@
 	var TaskForm = function (_React$Component) {
 	    _inherits(TaskForm, _React$Component);
 	
-	    function TaskForm() {
+	    function TaskForm(props) {
 	        _classCallCheck(this, TaskForm);
 	
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TaskForm).call(this));
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TaskForm).call(this, props));
 	
 	        _this.state = { text: '' };
 	        return _this;
@@ -20543,11 +20548,11 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                'form',
-	                { className: 'taskForm', onSubmit: this.handleSubmit },
+	                { className: 'taskForm', onSubmit: this.handleSubmit.bind(this) },
 	                _react2.default.createElement('input', { type: 'text', placeholder: 'New TODO here',
 	                    value: this.state.text,
-	                    onChange: this.handleTextChange }),
-	                _react2.default.createElement('input', { type: 'submit', value: 'Add' })
+	                    onChange: this.handleTextChange.bind(this) }),
+	                _react2.default.createElement('input', { className: "btn btn-primary", type: 'submit', value: 'Add' })
 	            );
 	        }
 	    }]);
@@ -20609,7 +20614,6 @@
 	    _createClass(TaskList, [{
 	        key: 'render',
 	        value: function render() {
-	            console.log(this);
 	            var onDelete = this.props.onDelete;
 	            var onComplete = this.props.onComplete;
 	            var onUpdate = this.props.onUpdate;
@@ -20626,7 +20630,7 @@
 	            });
 	
 	            var taskNodes = shownTasks.map(function (task) {
-	                return _react2.default.createElement(_task2.default, { completed: task.completed, text: task.text, id: task._id,
+	                return _react2.default.createElement(_task2.default, { completed: task.completed, text: task.text, key: task._id, id: task._id,
 	                    onTaskDelete: onDelete, onComplete: onComplete, onUpdate: onUpdate });
 	            }, this);
 	            return _react2.default.createElement(
@@ -20742,15 +20746,15 @@
 	                return _react2.default.createElement(
 	                    'div',
 	                    { className: 'task' },
-	                    _react2.default.createElement('input', { type: 'checkbox', checked: this.props.completed, onChange: this.complete }),
+	                    _react2.default.createElement('input', { type: 'checkbox', checked: this.props.completed, onChange: this.complete.bind(this) }),
 	                    _react2.default.createElement(
 	                        'label',
-	                        { className: label, onDoubleClick: this.edit },
+	                        { className: label, onDoubleClick: this.edit.bind(this) },
 	                        this.props.text
 	                    ),
 	                    _react2.default.createElement(
 	                        'a',
-	                        { onClick: this.handleDelete },
+	                        { onClick: this.handleDelete.bind(this) },
 	                        _react2.default.createElement('i', { className: "fa fa-trash" })
 	                    )
 	                );
@@ -20758,13 +20762,13 @@
 	                return _react2.default.createElement(
 	                    'div',
 	                    { className: 'task' },
-	                    _react2.default.createElement('input', { type: 'checkbox', checked: this.props.completed, onChange: this.complete }),
+	                    _react2.default.createElement('input', { type: 'checkbox', checked: this.props.completed, onChange: this.complete.bind(this) }),
 	                    _react2.default.createElement('input', { className: 'taskEdit', value: this.state.editText,
-	                        onChange: this.handleChange, onKeyDown: this.handleKeyDown,
-	                        onBlur: this.handleSubmit }),
+	                        onChange: this.handleChange.bind(this), onKeyDown: this.handleKeyDown.bind(this),
+	                        onBlur: this.handleSubmit.bind(this) }),
 	                    _react2.default.createElement(
 	                        'a',
-	                        { onClick: this.handleDelete },
+	                        { onClick: this.handleDelete.bind(this) },
 	                        _react2.default.createElement('i', { className: "fa fa-trash" })
 	                    )
 	                );
@@ -20796,6 +20800,10 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
+	var _classnames = __webpack_require__(/*! ../classnames.js */ 160);
+	
+	var _classnames2 = _interopRequireDefault(_classnames);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20810,18 +20818,19 @@
 	var Alert = function (_React$Component) {
 	    _inherits(Alert, _React$Component);
 	
-	    function Alert() {
-	        var _ret;
-	
+	    function Alert(props) {
 	        _classCallCheck(this, Alert);
 	
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Alert).call(this));
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Alert).call(this, props));
 	
-	        return _ret = {
+	        _this.componentDidMount = _this.componentDidMount.bind(_this);
+	        _this.handleTimeout = _this.handleTimeout.bind(_this);
+	        _this.state = {
 	            active: true,
 	            text: _this.props.text,
 	            type: _this.props.type
-	        }, _possibleConstructorReturn(_this, _ret);
+	        };
+	        return _this;
 	    }
 	
 	    _createClass(Alert, [{
@@ -20837,12 +20846,22 @@
 	            });
 	        }
 	    }, {
+	        key: 'componentWillReceiveProps',
+	        value: function componentWillReceiveProps(newProps) {
+	            this.setState({
+	                text: newProps.text,
+	                type: newProps.type,
+	                active: true
+	            });
+	            this.forceUpdate();
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            if (this.state.active) {
 	                return _react2.default.createElement(
 	                    'div',
-	                    { className: classNames('alert', 'alert-' + this.state.type) },
+	                    { className: (0, _classnames2.default)('alert', 'alert-' + this.state.type) },
 	                    _react2.default.createElement(
 	                        'span',
 	                        null,
@@ -20859,8 +20878,6 @@
 	}(_react2.default.Component);
 	
 	module.exports = Alert;
-	
-	console.log("Alert Works.");
 
 /***/ }
 /******/ ]);

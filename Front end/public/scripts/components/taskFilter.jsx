@@ -11,6 +11,10 @@ var ACTIVE = "Active";
 var COMPLETED = "Completed";
 
 class TaskFilter extends React.Component {
+    constructor(props){
+        super(props);
+        this.changeFilter = this.changeFilter.bind(this);
+    }
     changeFilter(e) {
         e.preventDefault();
         this.props.onChangeFilter(e.target.innerHTML);

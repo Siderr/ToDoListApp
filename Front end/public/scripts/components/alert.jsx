@@ -3,12 +3,15 @@
  */
 import React from 'react';
 import ReactDOM from 'react-dom';
+import classNames from '../classnames.js';
 
 
 class Alert extends React.Component {
-    constructor() {
-        super();
-        return{
+    constructor(props) {
+        super(props);
+        this.componentDidMount = this.componentDidMount.bind(this);
+        this.handleTimeout = this.handleTimeout.bind(this);
+        this.state = {
             active: true,
             text: this.props.text,
             type: this.props.type
@@ -25,6 +28,15 @@ class Alert extends React.Component {
         });
     }
 
+    componentWillReceiveProps(newProps) {
+        this.setState({
+            text: newProps.text,
+            type: newProps.type,
+            active: true
+        });
+        this.forceUpdate();
+    }
+
     render() {
         if (this.state.active) {
             return (
@@ -39,5 +51,3 @@ class Alert extends React.Component {
 }
 
 module.exports = Alert;
-
-console.log("Alert Works.")

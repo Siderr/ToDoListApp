@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 
 class TaskForm extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {text: ''};
     }
 
@@ -24,11 +24,11 @@ class TaskForm extends React.Component {
 
     render() {
         return (
-            <form className="taskForm" onSubmit={this.handleSubmit}>
+            <form className="taskForm" onSubmit={this.handleSubmit.bind(this)}>
                 <input type="text" placeholder="New TODO here"
                        value={this.state.text}
-                       onChange={this.handleTextChange}/>
-                <input type="submit" value="Add"/>
+                       onChange={this.handleTextChange.bind(this)}/>
+                <input className={"btn btn-primary"} type="submit" value="Add"/>
             </form>
         )
     }

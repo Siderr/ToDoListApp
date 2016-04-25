@@ -7,7 +7,6 @@ import ReactDOM from 'react-dom';
 import TaskFilter from './components/taskFilter.jsx';
 import TaskForm from './components/taskForm.jsx';
 import TaskList from './components/taskList.jsx';
-import Task from './components/task.jsx';
 import Alert from './components/alert.jsx';
 
 var ALL = "All";
@@ -18,25 +17,30 @@ class ToDoApp extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log(this);
         this.state = {data: [], filter: ALL};
+        this.showAlert = this.showAlert.bind(this);
+        this.loadTasksFromServer = this.loadTasksFromServer.bind(this);
+        this.loadTasksFromServer();
     }
 
     render() {
         return (
             <div>
                 <h1>To Do List</h1>
-                <TaskFilter currentFilter={this.state.filter} onChangeFilter={this.changeFilter}/>
-                <TaskForm onTaskSubmit={this.handleTaskSubmit}/>
-                <TaskList data={this.state.data} filter={this.state.filter} onDelete={this.handleTaskDelete}
-                          onComplete={this.toggleComplete}
-                          onUpdate={this.handleTaskUpdate}/>
+                <TaskFilter currentFilter={this.state.filter} onChangeFilter={this.changeFilter.bind(this)}/>
+                <TaskForm onTaskSubmit={this.handleTaskSubmit.bind(this)}/>
+                <TaskList data={this.state.data} filter={this.state.filter} onDelete={this.handleTaskDelete.bind(this)}
+                          onComplete={this.toggleComplete.bind(this)}
+                          onUpdate={this.handleTaskUpdate.bind(this)}/>
             </div>
         );
     }
 
+    showAlert(type,text) {
+        ReactDOM.render( <Alert text = {text} type = {type} />,document.getElementById('alert'));
+    }
+
     loadTasksFromServer() {
-        console.log(this); //pirma kart rodo i klase, po to rodo i Window ....
         $.ajax({
             url: this.props.url,
             type: 'GET',
@@ -46,7 +50,7 @@ class ToDoApp extends React.Component {
                 this.setState({data: data});
             }.bind(this),
             error: function (xhr, status, err) {
-                showAlert("danger", "Could not get data from server.");
+                this.showAlert("danger", "Could not get data from server.");
             }
         });
     }
@@ -60,10 +64,10 @@ class ToDoApp extends React.Component {
             cache: false,
             success: function (data) {
                 this.loadTasksFromServer();
-                showAlert("success", data.message);
+                this.showAlert("success", data.message);
             }.bind(this),
             error: function (xhr, status, err) {
-                showAlert("danger", xhr.status.toString().concat(" ", xhr.responseJSON.message));
+                this.showAlert("danger", xhr.status.toString().concat(" ", xhr.responseJSON.message));
             }
         });
     }
@@ -78,10 +82,10 @@ class ToDoApp extends React.Component {
             cache: false,
             success: function (data) {
                 this.loadTasksFromServer();
-                showAlert("success", data.message);
+                this.showAlert("success", data.message);
             }.bind(this),
             error: function (xhr, status, err) {
-                showAlert("danger", xhr.status.toString().concat(" ", xhr.responseJSON.message));
+                this.showAlert("danger", xhr.status.toString().concat(" ", xhr.responseJSON.message));
             }
         });
     }
@@ -99,11 +103,11 @@ class ToDoApp extends React.Component {
             dataType: 'json',
             cache: false,
             success: function (data) {
-                showAlert("success", data.message);
-            },
+                this.showAlert("success", data.message);
+            }.bind(this),
             error: function (xhr, status, err) {
-                showAlert("danger", xhr.status.toString().concat(" ", xhr.responseJSON.message));
-            }
+                this.showAlert("danger", xhr.status.toString().concat(" ", xhr.responseJSON.message));
+            }.bind(this)
         });
     }
 
@@ -122,17 +126,17 @@ class ToDoApp extends React.Component {
             dataType: 'json',
             cache: false,
             success: function (data) {
-                showAlert("success", data.message);
+                this.showAlert("success", data.message);
             }.bind(this),
             error: function (xhr, status, err) {
-                showAlert("danger", xhr.status.toString().concat(" ", xhr.responseJSON.message));
-            }
+                this.showAlert("danger", xhr.status.toString().concat(" ", xhr.responseJSON.message));
+            }.bind(this)
         });
     }
 
     componentDidMount() {
-        this.loadTasksFromServer();
-        setInterval(this.loadTasksFromServer, this.props.pollInterval);
+        this.loadTasksFromServer.bind(this);
+        setInterval(this.loadTasksFromServer.bind(this), this.props.pollInterval);
     }
 
     changeFilter(filter) {
