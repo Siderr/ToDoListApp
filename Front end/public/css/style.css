@@ -1,10 +1,4 @@
-.app {
-    max-width: 250px;
-    margin: 0 auto;
-}
-
 #content {
-    margin: 0 auto;
     padding-top: 52px;
 }
 
@@ -55,11 +49,16 @@ label {
     cursor: text;
 }
 
+.task i {
+    float: right;
+}
+
 #alert {
     margin: 0 auto;
+    position: fixed;
+    width: 100%;
+    top: 0px;
     text-align: center;
-    z-index: 99999;
-    position: absolute;
 }
 
 .btn, .btn-primary {
