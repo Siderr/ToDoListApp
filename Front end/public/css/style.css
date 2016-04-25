@@ -66,5 +66,10 @@ label {
 }
 
 .taskForm input:not(.btn) {
-    width: 70%;
+    width: 79%;
+}
+
+.taskForm .btn {
+    width: 20%;
+    margin:0 0 0 1%;
 }

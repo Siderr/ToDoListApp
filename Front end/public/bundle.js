@@ -20550,12 +20550,16 @@
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
-	                'form',
-	                { className: 'taskForm', onSubmit: this.handleSubmit.bind(this) },
-	                _react2.default.createElement('input', { type: 'text', placeholder: 'New TODO here',
-	                    value: this.state.text,
-	                    onChange: this.handleTextChange.bind(this) }),
-	                _react2.default.createElement('input', { className: "btn btn-primary", type: 'submit', value: 'Add' })
+	                'div',
+	                { className: 'taskForm' },
+	                _react2.default.createElement(
+	                    'form',
+	                    { onSubmit: this.handleSubmit.bind(this) },
+	                    _react2.default.createElement('input', { type: 'text', placeholder: 'New TODO here',
+	                        value: this.state.text,
+	                        onChange: this.handleTextChange.bind(this) }),
+	                    _react2.default.createElement('input', { className: "btn btn-primary", type: 'submit', value: 'Add' })
+	                )
 	            );
 	        }
 	    }]);
