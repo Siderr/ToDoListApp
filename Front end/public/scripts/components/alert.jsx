@@ -34,7 +34,7 @@ class Alert extends React.Component {
             type: newProps.type,
             active: true
         });
-        this.forceUpdate();
+        setTimeout(this.handleTimeout, 5000);
     }
 
     render() {

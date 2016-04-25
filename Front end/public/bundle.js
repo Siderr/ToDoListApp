@@ -20858,7 +20858,7 @@
 	                type: newProps.type,
 	                active: true
 	            });
-	            this.forceUpdate();
+	            setTimeout(this.handleTimeout, 5000);
 	        }
 	    }, {
 	        key: 'render',

@@ -54,6 +54,10 @@ label {
     position: absolute;
 }
 
+/*.alert {*/
+    /*text-align: center;*/
+/*}*/
+
 .btn, .btn-primary {
     margin: 0 2px;
 }
