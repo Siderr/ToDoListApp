@@ -20754,7 +20754,7 @@
 	                    _react2.default.createElement('input', { type: 'checkbox', checked: this.props.completed, onChange: this.complete.bind(this) }),
 	                    _react2.default.createElement(
 	                        'label',
-	                        { className: label, onDoubleClick: this.edit.bind(this) },
+	                        { className: label, onClick: this.edit.bind(this) },
 	                        this.props.text
 	                    ),
 	                    _react2.default.createElement(

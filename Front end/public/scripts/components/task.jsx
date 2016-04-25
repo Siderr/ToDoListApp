@@ -62,7 +62,7 @@ class Task extends React.Component {
             return (
                 <div className="task">
                     <input type="checkbox" checked={this.props.completed} onChange={this.complete.bind(this)}></input>
-                    <label className={label} onDoubleClick={this.edit.bind(this)}>{this.props.text}</label>
+                    <label className={label} onClick={this.edit.bind(this)}>{this.props.text}</label>
                     <a onClick={this.handleDelete.bind(this)}>
                         <i className={"fa fa-trash"}></i>
                     </a>
