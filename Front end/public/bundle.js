@@ -20382,25 +20382,34 @@
 	        value: function render() {
 	            var filter = this.props.currentFilter;
 	            return _react2.default.createElement(
-	                'div',
-	                { className: 'taskFilter' },
+	                'ul',
+	                { className: 'nav nav-pills' },
 	                _react2.default.createElement(
-	                    'button',
-	                    { className: (0, _classnames2.default)('btn', 'btn-default', { 'btn-primary': filter == ALL }),
-	                        onClick: this.changeFilter },
-	                    'All'
+	                    'li',
+	                    { role: 'presentation', className: (0, _classnames2.default)({ 'active': filter == ALL }) },
+	                    _react2.default.createElement(
+	                        'a',
+	                        { href: '#', onClick: this.changeFilter },
+	                        'All'
+	                    )
 	                ),
 	                _react2.default.createElement(
-	                    'button',
-	                    { className: (0, _classnames2.default)('btn', 'btn-default', { 'btn-primary': filter == ACTIVE }),
-	                        onClick: this.changeFilter },
-	                    'Active'
+	                    'li',
+	                    { role: 'presentation', className: (0, _classnames2.default)({ 'active': filter == ACTIVE }) },
+	                    _react2.default.createElement(
+	                        'a',
+	                        { href: '#', onClick: this.changeFilter },
+	                        'Active'
+	                    )
 	                ),
 	                _react2.default.createElement(
-	                    'button',
-	                    { className: (0, _classnames2.default)('btn', 'btn-default', { 'btn-primary': filter == COMPLETED }),
-	                        onClick: this.changeFilter },
-	                    'Completed'
+	                    'li',
+	                    { role: 'presentation', className: (0, _classnames2.default)({ 'active': filter == COMPLETED }) },
+	                    _react2.default.createElement(
+	                        'a',
+	                        { href: '#', onClick: this.changeFilter },
+	                        'Completed'
+	                    )
 	                )
 	            );
 	        }
@@ -20703,8 +20712,10 @@
 	    }, {
 	        key: 'handleSubmit',
 	        value: function handleSubmit(e) {
-	            var text = this.state.editText.trim();
-	            this.props.onUpdate(this.props.id, text);
+	            if (this.state.editText != "" && this.props.text != this.state.editText) {
+	                var text = this.state.editText.trim();
+	                this.props.onUpdate(this.props.id, text);
+	            }
 	            this.editing = false;
 	            this.forceUpdate();
 	        }

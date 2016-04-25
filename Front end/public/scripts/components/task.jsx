@@ -15,13 +15,15 @@ class Task extends React.Component {
     }
 
     componentDidUpdate() {
-        if( this.refs.taskInput != null)
-        ReactDOM.findDOMNode(this.refs.taskInput).focus();
+        if (this.refs.taskInput != null)
+            ReactDOM.findDOMNode(this.refs.taskInput).focus();
     }
 
     handleSubmit(e) {
-        var text = this.state.editText.trim();
-        this.props.onUpdate(this.props.id, text);
+        if (this.state.editText != "" && this.props.text != this.state.editText) {
+            var text = this.state.editText.trim();
+            this.props.onUpdate(this.props.id, text);
+        }
         this.editing = false;
         this.forceUpdate();
     }

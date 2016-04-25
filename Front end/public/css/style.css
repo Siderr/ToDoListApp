@@ -1,7 +1,6 @@
 .app {
     max-width: 250px;
     margin: 0 auto;
-    text-align: center;
 }
 
 #content {
@@ -9,17 +8,22 @@
     padding-top: 52px;
 }
 
+h1 {
+    padding-bottom: 20px;
+}
+
 .task, .taskForm input:not(.btn) {
     border-radius: 5px;
     border: 1px solid #337ab7;
     margin: 5px 0;
+    padding: 5px 0 7px 5px;
 }
 
 label {
     width: 200px;
     word-wrap: break-word;
     vertical-align: middle;
-    /*padding: 0;*/
+    text-align: left;
     margin: 0;
 }
 
@@ -35,12 +39,17 @@ label {
 
 .taskEdit {
     width: 200px;
-    word-wrap: break-word;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    line-height: 1.42857143;
+    background-color: #dddddd;
 }
 
-.task input, .task i {
+.task input:not(.taskEdit), .task i {
     vertical-align: middle;
     margin: 4px 4px;
+    cursor: pointer;
 }
 
 .task label:hover {
@@ -53,10 +62,6 @@ label {
     z-index: 99999;
     position: absolute;
 }
-
-/*.alert {*/
-    /*text-align: center;*/
-/*}*/
 
 .btn, .btn-primary {
     margin: 0 2px;

@@ -88,7 +88,7 @@ router.route('/tasks/complete/:task_id')
                     res.status(500).json({message: " Could update TODO. Internal server error."});
                     return;
                 }
-                res.json({message: 'Task updated successfully! Good job!'});
+                res.json({message: 'Task updated successfully!'});
             });
         });
     });

@@ -22,17 +22,11 @@ class TaskFilter extends React.Component {
     render() {
         var filter = this.props.currentFilter;
         return (
-            <div className="taskFilter">
-                <button className={classNames('btn', 'btn-default',{ 'btn-primary' : filter == ALL})}
-                        onClick={this.changeFilter}>All
-                </button>
-                <button className={classNames('btn', 'btn-default',{ 'btn-primary' : filter == ACTIVE})}
-                        onClick={this.changeFilter}>Active
-                </button>
-                <button className={classNames('btn', 'btn-default',{ 'btn-primary' : filter == COMPLETED })}
-                        onClick={this.changeFilter}>Completed
-                </button>
-            </div>
+            <ul className="nav nav-pills">
+                <li role="presentation" className={classNames({ 'active' : filter == ALL})}><a href="#" onClick={this.changeFilter}>All</a></li>
+                <li role="presentation" className={classNames({ 'active' : filter == ACTIVE})}><a href="#" onClick={this.changeFilter}>Active</a></li>
+                <li role="presentation" className={classNames({ 'active' : filter == COMPLETED})}><a href="#" onClick={this.changeFilter}>Completed</a></li>
+            </ul>
         )
     }
 }
