@@ -20689,6 +20689,8 @@
 	    function Task(props) {
 	        _classCallCheck(this, Task);
 	
+	        // this.componentDidMount = this.componentDidMount.bind(this);
+	
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Task).call(this, props));
 	
 	        _this.state = { editing: false };
@@ -20696,6 +20698,13 @@
 	    }
 	
 	    _createClass(Task, [{
+	        key: 'componentDidUpdate',
+	        value: function componentDidUpdate() {
+	            console.log(this);
+	            // React.findDOMNode(this.refs.taskInput).focus();
+	            if (this.refs.taskInput != null) _reactDom2.default.findDOMNode(this.refs.taskInput).focus();
+	        }
+	    }, {
 	        key: 'handleSubmit',
 	        value: function handleSubmit(e) {
 	            var text = this.state.editText.trim();
@@ -20765,7 +20774,7 @@
 	                    _react2.default.createElement('input', { type: 'checkbox', checked: this.props.completed, onChange: this.complete.bind(this) }),
 	                    _react2.default.createElement('input', { className: 'taskEdit', value: this.state.editText,
 	                        onChange: this.handleChange.bind(this), onKeyDown: this.handleKeyDown.bind(this),
-	                        onBlur: this.handleSubmit.bind(this) }),
+	                        onBlur: this.handleSubmit.bind(this), ref: "taskInput" }),
 	                    _react2.default.createElement(
 	                        'a',
 	                        { onClick: this.handleDelete.bind(this) },

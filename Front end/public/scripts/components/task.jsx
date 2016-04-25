@@ -14,6 +14,11 @@ class Task extends React.Component {
         this.state = {editing: false};
     }
 
+    componentDidUpdate() {
+        if( this.refs.taskInput != null)
+        ReactDOM.findDOMNode(this.refs.taskInput).focus();
+    }
+
     handleSubmit(e) {
         var text = this.state.editText.trim();
         this.props.onUpdate(this.props.id, text);
@@ -69,7 +74,7 @@ class Task extends React.Component {
                     <input type="checkbox" checked={this.props.completed} onChange={this.complete.bind(this)}></input>
                     <input className="taskEdit" value={this.state.editText}
                            onChange={this.handleChange.bind(this)} onKeyDown={this.handleKeyDown.bind(this)}
-                           onBlur={this.handleSubmit.bind(this)}></input>
+                           onBlur={this.handleSubmit.bind(this)} ref={"taskInput"}></input>
                     <a onClick={this.handleDelete.bind(this)}>
                         <i className={"fa fa-trash"}></i>
                     </a>
