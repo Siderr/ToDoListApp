@@ -20689,8 +20689,6 @@
 	    function Task(props) {
 	        _classCallCheck(this, Task);
 	
-	        // this.componentDidMount = this.componentDidMount.bind(this);
-	
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Task).call(this, props));
 	
 	        _this.state = { editing: false };
@@ -20700,8 +20698,6 @@
 	    _createClass(Task, [{
 	        key: 'componentDidUpdate',
 	        value: function componentDidUpdate() {
-	            console.log(this);
-	            // React.findDOMNode(this.refs.taskInput).focus();
 	            if (this.refs.taskInput != null) _reactDom2.default.findDOMNode(this.refs.taskInput).focus();
 	        }
 	    }, {
